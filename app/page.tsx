@@ -144,13 +144,15 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen">
       <div className="mx-auto max-w-[760px] px-5 py-10 sm:py-14">
         {draft.step === "landing" ? (
-          <section className="space-y-6">
+          <section className="soft-enter space-y-7">
             <div className="space-y-3">
-              <p className="text-sm font-medium text-neutral-500">Team exercise</p>
-              <h1 className="text-4xl font-semibold tracking-normal text-neutral-950">Johari Window Workshop</h1>
+              <p className="text-sm font-medium text-sky-700">Team exercise</p>
+              <h1 className="text-4xl font-semibold tracking-normal text-neutral-950 sm:text-5xl">
+                Johari Window Workshop
+              </h1>
               <p className="max-w-2xl text-base leading-7 text-neutral-600">
                 Choose the words that describe how you see yourself and how you see your teammates.
               </p>
@@ -158,7 +160,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => updateDraft({ step: "identity" })}
-              className="rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700"
+              className="rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white shadow-button transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 active:translate-y-0"
             >
               Start
             </button>
@@ -166,17 +168,17 @@ export default function Home() {
         ) : null}
 
         {draft.step === "identity" ? (
-          <section className="space-y-7">
+          <section className="soft-enter space-y-7">
             <div className="space-y-2">
               <h1 className="text-3xl font-semibold text-neutral-950">Choose your name</h1>
               <p className="text-neutral-600">Select your own participant card to begin.</p>
               {sessionStatus === "closed" ? (
-                <p className="rounded-md border border-line bg-panel p-3 text-sm text-neutral-600">
+                <p className="rounded-xl border border-line bg-white/75 p-3 text-sm text-neutral-600 shadow-soft">
                   This workshop session is currently closed.
                 </p>
               ) : null}
               {error ? (
-                <p className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>
+                <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>
               ) : null}
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -186,9 +188,11 @@ export default function Home() {
                   type="button"
                   onClick={() => selectParticipant(item.id)}
                   disabled={checkingParticipantId !== null}
-                  className="rounded-md border border-line bg-white px-4 py-5 text-left text-lg font-medium transition hover:border-neutral-400 hover:bg-neutral-50"
+                  className="glass-panel rounded-2xl border border-white/70 px-4 py-5 text-left text-lg font-semibold shadow-soft transition duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/90 active:translate-y-0 disabled:opacity-60"
                 >
-                  {checkingParticipantId === item.id ? "Checking..." : item.name}
+                  <span className={getParticipantTone(item.id)}>
+                    {checkingParticipantId === item.id ? "Checking..." : item.name}
+                  </span>
                 </button>
               ))}
             </div>
@@ -196,9 +200,11 @@ export default function Home() {
         ) : null}
 
         {draft.step === "self" ? (
-          <section>
+          <section className="soft-enter">
             <div className="mb-6 space-y-2">
-              <p className="text-sm font-medium text-neutral-500">{participant?.name}</p>
+              <p className={["text-sm font-semibold", participant ? getParticipantTone(participant.id) : ""].join(" ")}>
+                {participant?.name}
+              </p>
               <h1 className="text-3xl font-semibold text-neutral-950">Pick 10 adjectives that describe you.</h1>
               <p className="text-neutral-600">You can deselect a word by selecting it again.</p>
             </div>
@@ -221,21 +227,14 @@ export default function Home() {
         ) : null}
 
         {draft.step === "peer" && currentPeer ? (
-          <section>
+          <section className="soft-enter">
             <div className="mb-6 space-y-2">
               <p className="text-sm font-medium text-neutral-500">
                 {draft.peerIndex + 1} of {peerTargets.length} teammates
               </p>
               <h1 className="text-3xl font-semibold text-neutral-950">
                 Pick 15 adjectives that describe{" "}
-                <span
-                  className={[
-                    "inline-flex rounded-md border px-2 py-0.5 align-baseline",
-                    getParticipantTone(currentPeer.id)
-                  ].join(" ")}
-                >
-                  {currentPeer.name}
-                </span>
+                <span className={getParticipantTone(currentPeer.id)}>{currentPeer.name}</span>
                 .
               </h1>
             </div>
@@ -276,13 +275,15 @@ export default function Home() {
         ) : null}
 
         {draft.step === "review" ? (
-          <section className="space-y-6">
+          <section className="soft-enter space-y-6">
             <div className="space-y-2">
-              <p className="text-sm font-medium text-neutral-500">{participant?.name}</p>
+              <p className={["text-sm font-semibold", participant ? getParticipantTone(participant.id) : ""].join(" ")}>
+                {participant?.name}
+              </p>
               <h1 className="text-3xl font-semibold text-neutral-950">Review your responses</h1>
               <p className="text-neutral-600">Only aggregated results will be shown after the workshop.</p>
             </div>
-            <div className="space-y-3 rounded-md border border-line bg-white p-4">
+            <div className="glass-panel space-y-3 rounded-2xl border border-white/70 p-4 shadow-soft">
               <div className="flex items-center justify-between border-b border-line pb-3">
                 <span className="text-neutral-600">Self-picks</span>
                 <strong>{draft.self.length} selected</strong>
@@ -293,7 +294,7 @@ export default function Home() {
               </div>
             </div>
             {error ? (
-              <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</div>
+              <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</div>
             ) : null}
             <BottomBar
               message="Submissions cannot be edited after sending."
@@ -306,7 +307,7 @@ export default function Home() {
         ) : null}
 
         {draft.step === "done" ? (
-          <section className="space-y-4 rounded-md border border-line bg-white p-6">
+          <section className="soft-enter glass-panel space-y-4 rounded-2xl border border-white/70 p-6 shadow-soft">
             <p className="text-sm font-medium text-neutral-500">Submitted</p>
             <h1 className="text-3xl font-semibold text-neutral-950">Your responses were submitted.</h1>
             <p className="text-neutral-600">Results will be available after everyone completes the workshop.</p>
@@ -314,8 +315,10 @@ export default function Home() {
         ) : null}
 
         {draft.step === "alreadySubmitted" ? (
-          <section className="space-y-4 rounded-md border border-line bg-white p-6">
-            <p className="text-sm font-medium text-neutral-500">{participant?.name}</p>
+          <section className="soft-enter glass-panel space-y-4 rounded-2xl border border-white/70 p-6 shadow-soft">
+            <p className={["text-sm font-semibold", participant ? getParticipantTone(participant.id) : ""].join(" ")}>
+              {participant?.name}
+            </p>
             <h1 className="text-3xl font-semibold text-neutral-950">You have already submitted your responses.</h1>
             <p className="text-neutral-600">Results will be available after everyone completes the workshop.</p>
           </section>
@@ -327,14 +330,14 @@ export default function Home() {
 
 function getParticipantTone(participantId: string) {
   const tones: Record<string, string> = {
-    ast: "border-blue-200 bg-blue-50 text-blue-900",
-    mike: "border-emerald-200 bg-emerald-50 text-emerald-900",
-    armen: "border-amber-200 bg-amber-50 text-amber-900",
-    sargis: "border-rose-200 bg-rose-50 text-rose-900",
-    krist: "border-violet-200 bg-violet-50 text-violet-900",
-    shushan: "border-cyan-200 bg-cyan-50 text-cyan-900",
-    ani: "border-stone-200 bg-stone-50 text-stone-900"
+    ast: "text-blue-700",
+    mike: "text-emerald-700",
+    armen: "text-amber-700",
+    sargis: "text-rose-700",
+    krist: "text-violet-700",
+    shushan: "text-cyan-700",
+    ani: "text-stone-700"
   };
 
-  return tones[participantId] || "border-line bg-panel text-neutral-900";
+  return tones[participantId] || "text-neutral-900";
 }
