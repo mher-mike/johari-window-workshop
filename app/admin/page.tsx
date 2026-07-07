@@ -31,21 +31,6 @@ export default function AdminPage() {
     setLoading(false);
   }
 
-  async function setSessionStatus(status: "active" | "closed") {
-    setError("");
-    const response = await fetch("/api/results", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status })
-    });
-    if (!response.ok) {
-      const body = await response.json();
-      setError(body.error || "Could not update session.");
-      return;
-    }
-    await load();
-  }
-
   async function resetWorkshop() {
     const confirmed = window.confirm(
       "Reset all workshop responses? This clears submitted answers for this session and reopens it."
@@ -120,13 +105,6 @@ export default function AdminPage() {
                     className="rounded-full border border-sky-100 bg-sky-50 px-4 py-2 text-sm font-medium text-sky-800 transition duration-200 hover:-translate-y-0.5 hover:bg-sky-100 active:translate-y-0"
                   >
                     Export PDF
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setSessionStatus(data.session.status === "closed" ? "active" : "closed")}
-                    className="rounded-full border border-line bg-white/80 px-4 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
-                  >
-                    {data.session.status === "closed" ? "Reopen session" : "Close session"}
                   </button>
                   <button
                     type="button"
