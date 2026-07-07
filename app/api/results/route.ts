@@ -54,3 +54,21 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export async function DELETE() {
+  try {
+    const supabase = await ensureWorkshopData();
+    const { error: responsesError } = await supabase.from("responses").delete().eq("session_id", SESSION_ID);
+
+    if (responsesError) throw responsesError;
+
+    const { error: sessionError } = await supabase.from("sessions").update({ status: "active" }).eq("id", SESSION_ID);
+
+    if (sessionError) throw sessionError;
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Could not reset workshop.";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
