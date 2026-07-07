@@ -22,7 +22,7 @@ export function AdjectivePicker({ selected, required, search, onSearchChange, on
 
   return (
     <div className="space-y-5">
-      <div className="sticky top-0 z-10 -mx-1 bg-white/95 px-1 pb-3 pt-1 backdrop-blur">
+      <div className="sticky top-0 z-10 -mx-1 bg-[#f7f7f5]/85 px-1 pb-3 pt-1 backdrop-blur-xl">
         <label className="block text-sm font-medium text-neutral-700" htmlFor="adjective-search">
           Search adjectives
         </label>
@@ -31,16 +31,16 @@ export function AdjectivePicker({ selected, required, search, onSearchChange, on
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Type to filter"
-          className="mt-2 w-full rounded-md border border-line bg-white px-3 py-2 text-sm outline-none transition focus:border-neutral-400 focus:ring-4 focus:ring-neutral-100"
+          className="mt-2 w-full rounded-2xl border border-white/70 bg-white/80 px-4 py-3 text-sm shadow-soft outline-none transition duration-200 focus:border-sky-200 focus:bg-white focus:ring-4 focus:ring-sky-100"
         />
       </div>
 
       {selectedLabels.length > 0 ? (
-        <div className="rounded-md border border-line bg-panel p-3">
+        <div className="glass-panel rounded-2xl border border-white/70 p-3 shadow-soft">
           <p className="mb-2 text-xs font-medium uppercase text-neutral-500">{selected.length} selected</p>
           <div className="flex flex-wrap gap-2">
             {selectedLabels.map((label) => (
-              <span key={label} className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-sm">
+              <span key={label} className="rounded-full border border-sky-100 bg-sky-50 px-3 py-1 text-sm text-sky-900">
                 {label}
               </span>
             ))}
@@ -61,10 +61,10 @@ export function AdjectivePicker({ selected, required, search, onSearchChange, on
               disabled={isDisabled}
               onClick={() => onToggle(adjective.id)}
               className={[
-                "min-h-11 rounded-md border px-3 py-2 text-left text-sm transition",
+                "min-h-11 rounded-2xl border px-3 py-2 text-left text-sm shadow-sm transition duration-200 active:scale-[0.99]",
                 isActive
-                  ? "border-neutral-900 bg-neutral-900 text-white"
-                  : "border-line bg-white text-neutral-800 hover:border-neutral-400",
+                  ? "border-sky-200 bg-sky-600 text-white shadow-button"
+                  : "border-white/70 bg-white/[0.82] text-neutral-800 hover:-translate-y-0.5 hover:border-sky-100 hover:bg-white",
                 isDisabled ? "opacity-45" : ""
               ].join(" ")}
             >
@@ -75,7 +75,7 @@ export function AdjectivePicker({ selected, required, search, onSearchChange, on
       </div>
 
       {visible.length === 0 ? (
-        <div className="rounded-md border border-line bg-panel p-6 text-center text-sm text-neutral-500">
+        <div className="glass-panel rounded-2xl border border-white/70 p-6 text-center text-sm text-neutral-500 shadow-soft">
           No adjectives match this search.
         </div>
       ) : null}
