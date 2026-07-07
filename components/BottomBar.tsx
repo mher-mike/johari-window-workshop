@@ -11,7 +11,7 @@ type Props = {
 
 export function BottomBar({ count, message, actionLabel, disabled, onBack, onAction }: Props) {
   return (
-    <div className="sticky bottom-0 mt-8 border-t border-line bg-white/95 py-4 backdrop-blur">
+    <div className="sticky bottom-0 mt-8 border-t border-white/70 bg-white/80 py-4 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[760px] items-center justify-between gap-3 px-5">
         <div className="min-w-0">
           {count ? <p className="text-sm font-medium text-neutral-900">{count}</p> : null}
@@ -22,7 +22,7 @@ export function BottomBar({ count, message, actionLabel, disabled, onBack, onAct
             <button
               type="button"
               onClick={onBack}
-              className="rounded-md border border-line bg-white px-4 py-2 text-sm font-medium text-neutral-800 transition hover:bg-neutral-50"
+              className="rounded-full border border-line bg-white/80 px-4 py-2 text-sm font-medium text-neutral-800 transition duration-200 hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
             >
               Back
             </button>
@@ -31,7 +31,7 @@ export function BottomBar({ count, message, actionLabel, disabled, onBack, onAct
             type="button"
             disabled={disabled}
             onClick={onAction}
-            className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:bg-neutral-300"
+            className="rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow-button transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 active:translate-y-0 disabled:translate-y-0 disabled:bg-neutral-300 disabled:shadow-none"
           >
             {actionLabel}
           </button>
