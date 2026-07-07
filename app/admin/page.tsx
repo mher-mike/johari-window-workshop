@@ -84,25 +84,27 @@ export default function AdminPage() {
 
         {data ? (
           <div className="space-y-6">
-            <section className="glass-panel print-card rounded-2xl border border-white/70 p-4 shadow-soft">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
+            <section className="glass-panel print-card rounded-2xl border border-white/70 p-6 shadow-soft sm:p-8">
+              <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                <div className="space-y-5">
+                  <div>
                   <p className="text-sm text-neutral-500">Session status</p>
                   <p className="mt-1 text-xl font-semibold capitalize text-neutral-950">{data.session.status}</p>
                   <p className="mt-1 text-sm text-neutral-600">{data.completeCount} of 7 participants complete</p>
-                </div>
-                <div className="no-print flex flex-wrap gap-2">
+                  </div>
                   <button
                     type="button"
                     onClick={() => setShowResults(true)}
-                    className="rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow-button transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 active:translate-y-0"
+                    className="no-print w-full rounded-full bg-neutral-950 px-4 py-3 text-sm font-medium text-white shadow-button transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 active:translate-y-0 sm:w-auto sm:px-6"
                   >
                     Calculate/view results
                   </button>
+                </div>
+                <div className="no-print flex flex-col gap-3 sm:flex-row">
                   <button
                     type="button"
                     onClick={exportPdf}
-                    className="rounded-full border border-sky-100 bg-sky-50 px-4 py-2 text-sm font-medium text-sky-800 transition duration-200 hover:-translate-y-0.5 hover:bg-sky-100 active:translate-y-0"
+                    className="rounded-full border border-sky-100 bg-sky-50 px-4 py-3 text-sm font-medium text-sky-800 transition duration-200 hover:-translate-y-0.5 hover:bg-sky-100 active:translate-y-0 sm:px-6"
                   >
                     Export PDF
                   </button>
@@ -110,7 +112,7 @@ export default function AdminPage() {
                     type="button"
                     onClick={resetWorkshop}
                     disabled={resetting}
-                    className="rounded-full border border-red-100 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 transition duration-200 hover:-translate-y-0.5 hover:bg-red-100 active:translate-y-0 disabled:translate-y-0 disabled:opacity-60"
+                    className="rounded-full border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 transition duration-200 hover:-translate-y-0.5 hover:bg-red-100 active:translate-y-0 disabled:translate-y-0 disabled:opacity-60 sm:px-6"
                   >
                     {resetting ? "Resetting..." : "Reset results"}
                   </button>
